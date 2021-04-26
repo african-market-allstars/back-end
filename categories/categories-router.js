@@ -3,21 +3,29 @@ const router = express.Router();
 
 const Categories = require('../categories/categories-model.js');
 
-router.post('/', async (req, res) => {
-	const category = req.body;
+router.post('/', validateCategory, async (req, res) => {
+	try {
+		const category_name = req.body.category_name;
 
-	const categoryExist = await Categories.findBy({ category }).first();
-
-	if (categoryExist) {
-		res.status(400).json({ message: 'category already exists, please log in!' });
-		return;
+		const categoryExist = await Categories.findBy({ category_name }).first();
+	
+		if (categoryExist) {
+			res.status(400).json({ message: 'category already exists, please log in!' });
+			return;
+		}
+	
+		Categories.add({category_name})
+			.then((category) => {
+				res.status(201).json(category);
+			})
+			.catch((err) => {
+				console.log(err);
+				res.status(500).json({ message: 'Database error: ', err })
+			});
+	} catch(err) {
+		console.log(err);
 	}
-
-	Categories.add(category)
-		.then((category) => {
-			res.status(201).json(category);
-		})
-		.catch((err) => res.status(500).json({ message: 'Database error: ', err }));
+	
 });
 
 router.get('/', (req, res) => {
@@ -31,7 +39,7 @@ router.get('/', (req, res) => {
 		});
 });
 
-router.get('/:id', validateCategory, (req, res) => {
+router.get('/:id', (req, res) => {
 	Categories.findById(req.params.id).then((category) => {
 		if (category) {
 			res.status(201).json(category);
@@ -59,7 +67,7 @@ router.put('/:id', validateCategory, (req, res) => {
 	});
 });
 
-router.delete('/:id', validateCategory, (req, res) => {
+router.delete('/:id', (req, res) => {
 	Categories.remove(req.params.id).then((category) => {
 		if (category) {
 			res.status(200).json({
@@ -80,7 +88,7 @@ function validateCategory (req, res, next) {
 	if (!req.body) {
 		next({ code: 400, message: 'missing category data' });
 	}
-	if (!req.body.text) {
+	if (!req.body.category_name) {
 		next({ code: 400, message: 'missing required text field' });
 	}
 }

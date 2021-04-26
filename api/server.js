@@ -11,6 +11,7 @@ const categoriesRouter = require('../categories/categories-router.js');
 const server = express();
 
 server.use(helmet());
+server.use(express.urlencoded({extended: false}))
 server.use(express.json());
 server.use(cors());
 server.use(logger);
