@@ -10,8 +10,9 @@ module.exports = {
 };
 
 async function add(item) {
+	console.log(item)
 	const [id] = await db('categories').insert(item, 'id');
-	await db('categories').where({ id }).first();
+	return db('categories').where({ id }).first();
 }
 
 function find() {
@@ -19,7 +20,7 @@ function find() {
 }
 
 function findBy(filter) {
-	return db('users').where(filter);
+	return db('categories').where(filter);
 }
 
 function findById(id) {

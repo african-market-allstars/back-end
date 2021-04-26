@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const bcrypt = require('bcryptjs');
+const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {jwtSecret} = require('../data/secret.js');
 
-const Users = require('..users/users-model.js');
-const {isvalid} = require('../users/users-service.js');
+const Users = require('../users/users-model.js');
+const {isValid} = require('../users/users-service.js');
 
 router.post('/register', async (req, res, next) => {
     const user = req.body
@@ -20,7 +20,7 @@ router.post('/register', async (req, res, next) => {
 	user.password = hash;
 
     try {
-        if(isvalid(user)) {
+        if(isValid(user)) {
             const newUser = await Users.add(user);
             res.status(201).json({
                 auth: {
@@ -36,8 +36,11 @@ router.post('/register', async (req, res, next) => {
 			});
 		}
 	} catch (error) {
+        console.log(error);
 		next({ apiCode: 500, apiMessage: 'error saving new user', ...error });
 	}
 });
+
+module.exports = router;
 
    
