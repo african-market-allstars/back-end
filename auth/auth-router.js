@@ -41,6 +41,52 @@ router.post('/register', async (req, res, next) => {
 	}
 });
 
+
+
+
+router.post('/login', async (req, res, next) => {
+	const { username, password } = req.body;
+
+	try {
+		if (!isValid(req.body)) {
+			next({ apiCode: 400, apiMessage: 'email or password invalid' });
+		} else {
+			const user = await Users.findBy({ username: username }).first();
+
+			if (user && bcryptjs.compareSync(password, user.password)) {
+
+				const token = generateToken(user);
+                
+                res.status(200).json({
+					message: 'Welcome to the api',
+					auth: { id: user.id, name: user.name, email: user.email },
+					token: token,
+				});
+			} else {
+				next({ apiCode: 401, apiMessage: 'invalid credentials' });
+			}
+		}
+	} catch (err) {
+		next({ apiCode: 500, apiMessage: 'db error loggin in', ...err });
+	}
+});
+
+function generateToken(user) {
+	const payload = {
+        subject: user.id,
+        username: user.username,
+		email: user.email,
+	};
+
+	const options = {
+		expiresIn: '1d',
+	};
+
+	const token = jwt.sign(payload, jwtSecret, options);
+
+	return token;
+}
+
 module.exports = router;
 
    
