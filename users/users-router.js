@@ -9,6 +9,22 @@ const Items = require('../items/items-model.js');
 
 const restrictedMiddleware = require('../auth/restricted-middleware.js');
 
+
+
+
+
+
+router.get('/', (req, res) => {
+	Users.find(req.query)
+		.then((item) => {
+			res.status(200).json(item);
+		})
+		.catch((err) => {
+			console.error(err);
+			next(err);
+		});
+});
+
 router.post('/:id/items', restrictedMiddleware, async (req, res) => {
 	const item = req.body;
 
