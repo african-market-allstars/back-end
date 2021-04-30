@@ -39,6 +39,11 @@ PUT - update specific user - base-url/api/users/:id
 DELETE - delete specific user - base-url/api/users/:id
 
 Items
+
+
+GET - all items from - base-url/api/items
+
+
 POST - add new item - base-url/api/users/:id/items
 
 {
@@ -55,7 +60,7 @@ POST - add new item - base-url/api/users/:id/items
     "user_id": 3,
     "category_id": 1
 }
-GET - all items - base-url/api/users/:id/items
+GET - all items by id - base-url/api/users/:id/items
 
 [
     {
@@ -134,7 +139,7 @@ GET - all categories - base-url/api/categories
 
 GET - specific category - base-url/api/categories/:id
 
-GET - all items from
+
 
 PUT - update specific category - base-url/api/categories/:id
 
