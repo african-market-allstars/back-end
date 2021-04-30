@@ -9,6 +9,12 @@ https://african-market-allstars.herokuapp.com/
 
 End Points
 Users
+
+
+GET - all users - base-url/api/users
+
+
+
 POST - new user - base-url/api/auth/register
 
 For registration:
@@ -45,7 +51,7 @@ POST - add new item - base-url/api/users/:id/items
     "city": "Nairobi",
     "address": "123 Market Street",
     "zip_code": "00100",
-    "created_at": "2020-10-21 19:09:27",
+    "created_at": "",
     "user_id": 3,
     "category_id": 1
 }
@@ -62,7 +68,7 @@ GET - all items - base-url/api/users/:id/items
         "city": "Nairobi",
         "address": "123 Market Street",
         "zip_code": "00100",
-        "created_at": "2020-10-21 19:09:27",
+        "created_at": "",
         "user_id": 3,
         "category_id": 1
     },
@@ -76,7 +82,7 @@ GET - all items - base-url/api/users/:id/items
         "city": "Nairobi",
         "address": "123 Market Street",
         "zip_code": "00100",
-        "created_at": "2020-10-23 01:52:02",
+        "created_at": "",
         "user_id": 3,
         "category_id": 1
     }
@@ -94,7 +100,7 @@ PUT - update specific item - base-url/api/users/:id/items/:item_id
         "city": "Nairobi",
         "address": "123 Market Street",
         "zip_code": "00100",
-        "created_at": "2020-10-23 01:52:02",
+        "created_at": "",
         "user_id": 3,
         "category_id": 1
     },
@@ -114,7 +120,7 @@ DELETE - delete specific item - base-url/api/users/:id/items/:item_id
             "city": "Nairobi",
             "address": "123 Market Street",
             "zip_code": "00100",
-            "created_at": "2020-10-23 01:52:02",
+            "created_at": "",
             "user_id": 3,
             "category_id": 1
         }
