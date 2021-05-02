@@ -82,6 +82,9 @@ function generateToken(user) {
 		expiresIn: '1d',
 	};
 
+
+	//ecpiresIn
+
 	const token = jwt.sign(payload, jwtSecret, options);
 
 	return token;
